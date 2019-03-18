@@ -2,7 +2,17 @@ cmake_minimum_required(VERSION 3.5)
 
 project(yamr VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
+find_package(Threads)
+find_package(Boost COMPONENTS filesystem system REQUIRED)
+
+include_directories(${Boost_INCLUDE_DIR})
+
 add_executable(yamr main.cpp)
+
+target_link_libraries(yamr
+	${CMAKE_THREAD_LIBS_INIT}
+	${Boost_LIBRARIES}
+)
 
 set_target_properties(yamr PROPERTIES
 	CXX_STANDARD 14
